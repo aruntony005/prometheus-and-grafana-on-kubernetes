@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-client-provisioner
+  labels:
+    app: nfs-client-provisioner
+  namespace: kube-monitor
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nfs-client-provisioner
+  template:
+    metadata:
+      labels:
+        app: nfs-client-provisioner
+    spec:
+      serviceAccountName: prometheus-sa
+      containers:
+        - name: nfs-client-provisioner
+          image: rkevin/nfs-subdir-external-provisioner:fix-k8s-1.20
+#          image: quay.io/external_storage/nfs-client-provisioner:latest
+          volumeMounts:
+            - name: nfs-client-root
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: nfs-provisoner
+            - name: NFS_SERVER
+              value: 10.128.0.28
+            - name: NFS_PATH
+              value: /mnt/nfs
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: 10.128.0.28
+            path: /mnt/nfs
