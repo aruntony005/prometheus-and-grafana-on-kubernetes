@@ -5,7 +5,7 @@ metadata:
     component: "alertmanager"
     app: prometheus
   name: prometheus-alertmanager-config
-  namespace: default
+  namespace: kube-monitor
 data:
   alertmanager.yml: |
     global: {}

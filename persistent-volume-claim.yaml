@@ -7,8 +7,9 @@ metadata:
   name: prometheus-alertmanager-pvc
   namespace: kube-monitor
 spec:
+  storageClassName: managed-nfs-storage
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: "2Gi"
@@ -23,8 +24,29 @@ metadata:
   name: prometheus-server-pvc
   namespace: kube-monitor
 spec:
+  storageClassName: managed-nfs-storage
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: "8Gi"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    component: "server"
+    app: grafana
+  name: grafana-server-pvc
+  namespace: kube-monitor
+spec:
+  storageClassName: managed-nfs-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "2Gi"
+
+
+

@@ -39,4 +39,4 @@ spec:
           timeoutSeconds: 5
       nodeSelector:
         kubernetes.io/os: linux
-      serviceAccountName: prometheus-sa
+      serviceAccountName: kube-state-metrics

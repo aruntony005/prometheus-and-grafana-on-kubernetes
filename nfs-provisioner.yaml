@@ -29,11 +29,11 @@ spec:
             - name: PROVISIONER_NAME
               value: nfs-provisoner
             - name: NFS_SERVER
-              value: 10.128.0.28
+              value: 10.128.0.29
             - name: NFS_PATH
               value: /mnt/nfs
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 10.128.0.28
+            server: 10.128.0.29
             path: /mnt/nfs
